@@ -1,0 +1,73 @@
+package joptionpane.showmessagedialog;
+
+import javax.swing.JOptionPane;
+
+public class correo {
+
+    public static void main(String[] args) {
+        String email = "";
+        int at1 = 0, at2 = 0;
+        int dot1 = 0;
+        boolean at = false, dot = false, domain = false, tld = false;
+
+        do {
+            email = JOptionPane.showInputDialog("Inserta un correo");
+
+            //comprobamos si tenemos solo un arroba
+            for (int i = 0; i < email.length(); i++) {
+                if (email.charAt(i) == '@') {
+                    at1++;
+                }
+            }
+            if (at1 != 1) {
+                at = false;
+            } else {
+                at = true;
+            }
+            at1 = 0;
+            //definir posicion del arroba en pantalla
+            for (int i = 0; i < email.length(); i++) {
+                if (email.charAt(i) == '@') {
+                    at2 = i;
+                }
+            }
+
+            //Comprobar que el dominio no está vacío
+            if ((at2 + 1) < email.length()) {
+                if (email.charAt(at2 + 1) == '.') {
+                    domain = false;
+                } else {
+                    domain = true;
+                }
+            }
+
+            //comprobar si al mrnos ahi un punto
+            for (int i = at2; i < email.length(); i++) {
+                if (email.charAt(i) == '.') {
+                    dot1++;
+                }
+            }
+            if (dot1 == 0) {
+                dot = false;
+            } else {
+                dot = true;
+            }
+
+            //Obtener la posición del último punto
+            for (int i = 0; i < email.length(); i++) {
+                if (email.charAt(i) == '.') {
+                    dot1 = i;
+                }
+            }
+
+            //Comprobando que hay algún dominio de nivel superior
+            if (email.length() == dot1 + 1) {
+                tld = false;
+            } else {
+                tld = true;
+            }
+        } while (at == false || domain == false || dot == false || tld == false);
+
+        System.out.println("muy bien");
+    }
+}
